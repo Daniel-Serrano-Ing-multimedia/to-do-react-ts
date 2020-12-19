@@ -1,13 +1,22 @@
 import React from 'react';
 import Header from './components/Header/Header';
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
-    <div className="container">
-      < Header/>
-      
-    </div>
+    <>
+        < Header/>
+        <div className="container">
+          <div className = "row">
+            <div >
+              <h1> Form...   </h1>
+            </div>
+            <div>
+              <h1> Lists </h1>
+            </div>
+            </div>
+        </div>
+    </>
   );
 }
 

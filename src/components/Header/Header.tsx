@@ -1,12 +1,17 @@
-import { S_IFCHR } from 'constants'
 import React from 'react'
-
-const Header = () => {
+import { Navbar, Button, Alignment } from '@blueprintjs/core';
+import './Header.css'
+const Header = (): JSX.Element => {
     
     return(
-        <div>
-            <h1> Header </h1>
-        </div>
+        <Navbar>
+            <Navbar.Group align={Alignment.LEFT}>
+                <Navbar.Heading>To Do List</Navbar.Heading>
+                <Navbar.Divider />
+                <Button className="bp3-minimal" icon="home" text="Home" />
+                <Button className="bp3-minimal" icon="document" text="Files" />
+            </Navbar.Group>
+        </Navbar>
     );
 }
 
