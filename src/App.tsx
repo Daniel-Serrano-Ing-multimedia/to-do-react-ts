@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from './components/Header/Header';
+import Form from './components/Form/Form';
 import './App.scss';
 
 function App() {
@@ -8,9 +9,7 @@ function App() {
         < Header/>
         <div className="container">
           <div className = "row">
-            <div >
-              <h1> Form...   </h1>
-            </div>
+            <Form/>
             <div>
               <h1> Lists </h1>
             </div>
