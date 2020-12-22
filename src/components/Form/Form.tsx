@@ -1,6 +1,7 @@
 import React ,{ useState, useEffect } from 'react'
 import { FormGroup, InputGroup, TextArea } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
+import './Form.scss';
 interface formData {
     name: String,
     description: String,
@@ -47,6 +48,7 @@ const Form = () => {
                     formatDate={date => date.toLocaleString()}
                     //onChange={this.handleDateChange}
                     parseDate={str => new Date(str)}
+                    defaultValue={new Date()}
                     placeholder={"M/D/YYYY"}
                     //value={this.state.date}
                 />
@@ -57,7 +59,7 @@ const Form = () => {
                 label="fecha de finalización"
             >
                 <DateInput
-                    //formatDate={date => date.toLocaleString()}
+                    formatDate={date => date.toLocaleString()}
                     //onChange={this.handleDateChange}
                     parseDate={str => new Date(str)}
                     placeholder={"M/D/YYYY"}
