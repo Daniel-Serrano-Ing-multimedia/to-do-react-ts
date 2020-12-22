@@ -2,18 +2,28 @@ import React ,{ useState, useEffect } from 'react'
 import { FormGroup, InputGroup, TextArea } from '@blueprintjs/core';
 import { DateInput } from '@blueprintjs/datetime';
 import './Form.scss';
-interface formData {
+
+type FormProps = {
+    /** array of objects! (common) */
+  listaTasks: {
     name: String,
     description: String,
     initDate: Date,
     finishDate: Date
+  }[];
 }
-const Form = () => {
+interface formData {
+    name: string,
+    description: string,
+    initDate: Date,
+    finishDate: Date
+}
+const Form = ( { listaTasks }: FormProps ) => {
 
-    const [dataTask, setDataTask] = useState({});
+    const [dataTask, setDataTask] = useState <formData | null> (null);
     
-    const handleOnChange = ( e ) => {
-        console.log("cambiando..");
+    const handleOnChange = ( e: React.FormEvent<HTMLInputElement> ):void => {
+        console.log( "cambiando.." );
     }
     return(
         <div className = "task-form">
@@ -22,7 +32,11 @@ const Form = () => {
                 label="Nombre de Tarea"
                 labelFor="text-input"
             >
-                <InputGroup id="text-input" placeholder="Placeholder text" />
+                <InputGroup 
+                    id="text-input" 
+                    placeholder="Placeholder text" 
+                    value = { dataTask.name }
+                />
             </FormGroup>
 
             <FormGroup
@@ -36,7 +50,7 @@ const Form = () => {
                     large={ true }
                     //intent={Intent.PRIMARY}
                     //onChange={this.handleChange}
-                    //value={this.state.value}
+                    //{value}={this.state.value}
                 />
             </FormGroup>
 
