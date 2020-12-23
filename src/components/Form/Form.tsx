@@ -26,12 +26,10 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
                 ...dataTask,
                [ e.currentTarget.name]: e.currentTarget.value
         });  
-        console.log("cambiando..", dataTask);
     }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement> ): void => {
+    const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
-        console.log("on submit")
         setTask2List(dataTask);
     }
     return (
