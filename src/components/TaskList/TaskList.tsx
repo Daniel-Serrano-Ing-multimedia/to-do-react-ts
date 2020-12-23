@@ -25,6 +25,8 @@ const TaskList: React.SFC<TaskListProps> = ({ listaTasks, reloadList, setReloadL
             key={index}
             name={task.name}
             description = { task.description }
+            initDate = { task.initDate }
+            finishDate = { task.finishDate }
           />
          ) 
           

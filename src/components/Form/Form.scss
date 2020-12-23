@@ -1,2 +1,10 @@
 @import "@blueprintjs/core/lib/scss/variables";
 @import "~@blueprintjs/datetime/lib/css/blueprint-datetime.css";
+
+.task-form{
+    max-width: 500px;
+
+    &__Input{
+        width: 500px;
+    }
+}

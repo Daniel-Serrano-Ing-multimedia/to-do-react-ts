@@ -16,7 +16,7 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
     const [ dataTask, setDataTask ] = useState<task>({
         name        : "",
         description : "",
-        initDate    : null,
+        initDate    : new Date( Date.now() ),
         finishDate  : null
     });
     
@@ -28,20 +28,30 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
         });  
     }
 
+    const handleInitDate =date => {
+        setDataTask({
+            ...dataTask,
+            initDate :date 
+            });
+    }
+
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         setTask2List(dataTask);
     }
+
     return (
         <form
+            className = 'task-form'
             onSubmit = { handleSubmit }
         >
-            <ControlGroup
-                className="task-form"
+            <ControlGroup 
+                className="task-form__Control"
                 vertical={true}
             >
                 <h2>Agrega una nueva tarea</h2>
                 <FormGroup
+                    className="task-form__Input"
                     label="Nombre de Tarea"
                     labelFor="text-input"
                 >
@@ -55,15 +65,18 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
                 </FormGroup>
 
                 <FormGroup
+                    className="task-form__Input"
                     helperText="Helper text with details..."
                     label="Descripcion"
                     labelFor="text-input"
                     labelInfo="(required)"
                 >
                     <TextArea
+                        className = 'task-form__Input__textArea'
                         growVertically={true}
                         name = 'description'
                         large={ false }
+                        fill = { true }
                         //intent={Intent.PRIMARY}
                         value={ dataTask.description }
                         onChange = { handleOnChangeTxt }
@@ -71,6 +84,7 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
                 </FormGroup>
 
                 <FormGroup
+                    className="task-form__Input"
                     helperText="dia en que debes iniciar la tarea"
                     label="fecha de nicio"
                 >
@@ -81,10 +95,17 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
                         defaultValue={new Date()}
                         placeholder={"M/D/YYYY"}
                         //value={this.state.date}
+                        onChange = {  date => {
+                            setDataTask({
+                                ...dataTask,
+                                initDate :date 
+                                });
+                        } }
                     />
                 </FormGroup>
 
                 <FormGroup
+                    className="task-form__Input"
                     helperText="dia en que debes terminar la tarea"
                     label="fecha de finalización"
                 >
