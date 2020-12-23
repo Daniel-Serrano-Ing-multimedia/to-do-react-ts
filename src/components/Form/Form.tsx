@@ -1,86 +1,111 @@
-import React ,{ useState, useEffect } from 'react'
-import { FormGroup, InputGroup, TextArea } from '@blueprintjs/core';
+import React ,{ useState, useEffect, FormEvent, ChangeEvent } from 'react'
+import { FormGroup, InputGroup, TextArea, Button, ControlGroup } from '@blueprintjs/core';
+import { task } from '../../interfaces/task';
+import moment from 'moment';
 import { DateInput } from '@blueprintjs/datetime';
 import './Form.scss';
 
 type FormProps = {
     /** array of objects! (common) */
-  listaTasks: {
-    name: String,
-    description: String,
-    initDate: Date,
-    finishDate: Date
-  }[];
+    listaTasks      : task[];
+    setListaTasks   : React.Dispatch<React.SetStateAction<any[]>>;
+    setTask2List    : (task:task) => void; 
 }
-interface formData {
-    name: string,
-    description: string,
-    initDate: Date,
-    finishDate: Date
-}
-const Form = ( { listaTasks }: FormProps ) => {
-
-    const [dataTask, setDataTask] = useState <formData | null> (null);
+const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
+    /*  Estado del componente  */
+    const [ dataTask, setDataTask ] = useState<task>({
+        name        : "",
+        description : "",
+        initDate    : null,
+        finishDate  : null
+    });
     
-    const handleOnChange = ( e: React.FormEvent<HTMLInputElement> ):void => {
-        console.log( "cambiando.." );
+    const handleOnChangeTxt = ( e: FormEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement> ):void => {
+        
+        setDataTask({
+                ...dataTask,
+               [ e.currentTarget.name]: e.currentTarget.value
+        });  
+        console.log("cambiando..", dataTask);
     }
-    return(
-        <div className = "task-form">
-            <h2>Agrega una nueva tarea</h2>
-            <FormGroup
-                label="Nombre de Tarea"
-                labelFor="text-input"
-            >
-                <InputGroup 
-                    id="text-input" 
-                    placeholder="Placeholder text" 
-                    value = { dataTask.name }
-                />
-            </FormGroup>
 
-            <FormGroup
-                helperText="Helper text with details..."
-                label="Descripcion"
-                labelFor="text-input"
-                labelInfo="(required)"
+    const handleSubmit = (event: FormEvent<HTMLFormElement> ): void => {
+        event.preventDefault();
+        console.log("on submit")
+        setTask2List(dataTask);
+    }
+    return (
+        <form
+            onSubmit = { handleSubmit }
+        >
+            <ControlGroup
+                className="task-form"
+                vertical={true}
             >
-                <TextArea
-                    growVertically={ true }
-                    large={ true }
-                    //intent={Intent.PRIMARY}
-                    //onChange={this.handleChange}
-                    //{value}={this.state.value}
-                />
-            </FormGroup>
+                <h2>Agrega una nueva tarea</h2>
+                <FormGroup
+                    label="Nombre de Tarea"
+                    labelFor="text-input"
+                >
+                    <InputGroup 
+                        id="text-input" 
+                        name = 'name'
+                        placeholder="Placeholder text" 
+                        value={ dataTask.name }
+                        onChange = { handleOnChangeTxt }
+                    />
+                </FormGroup>
 
-            <FormGroup
-                helperText="dia en que debes iniciar la tarea"
-                label="fecha de nicio"
-            >
-                <DateInput
-                    formatDate={date => date.toLocaleString()}
-                    //onChange={this.handleDateChange}
-                    parseDate={str => new Date(str)}
-                    defaultValue={new Date()}
-                    placeholder={"M/D/YYYY"}
-                    //value={this.state.date}
-                />
-            </FormGroup>
+                <FormGroup
+                    helperText="Helper text with details..."
+                    label="Descripcion"
+                    labelFor="text-input"
+                    labelInfo="(required)"
+                >
+                    <TextArea
+                        growVertically={true}
+                        name = 'description'
+                        large={ false }
+                        //intent={Intent.PRIMARY}
+                        value={ dataTask.description }
+                        onChange = { handleOnChangeTxt }
+                    />
+                </FormGroup>
 
-            <FormGroup
-                helperText="dia en que debes terminar la tarea"
-                label="fecha de finalización"
-            >
-                <DateInput
-                    formatDate={date => date.toLocaleString()}
-                    //onChange={this.handleDateChange}
-                    parseDate={str => new Date(str)}
-                    placeholder={"M/D/YYYY"}
-                    //value={this.state.date}
-                />
-            </FormGroup>
-        </div>
+                <FormGroup
+                    helperText="dia en que debes iniciar la tarea"
+                    label="fecha de nicio"
+                >
+                    <DateInput
+                        formatDate={date => date.toLocaleString()}
+                        //onChange={this.handleDateChange}
+                        parseDate={str => new Date(str)}
+                        defaultValue={new Date()}
+                        placeholder={"M/D/YYYY"}
+                        //value={this.state.date}
+                    />
+                </FormGroup>
+
+                <FormGroup
+                    helperText="dia en que debes terminar la tarea"
+                    label="fecha de finalización"
+                >
+                    <DateInput
+                        formatDate={date => date.toLocaleString()}
+                        //onChange={this.handleDateChange}
+                        parseDate={str => new Date(str)}
+                        placeholder={"M/D/YYYY"}
+                        //value={this.state.date}
+                    />
+                </FormGroup>
+
+            </ControlGroup>
+            <Button
+                text="Añadir Tarea"
+                type="submit"
+                fill = { true }
+            />
+        </form>
     );
 }
 
