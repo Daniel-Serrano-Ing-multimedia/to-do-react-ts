@@ -1,7 +1,7 @@
-import React ,{ useState, useEffect, FormEvent, ChangeEvent } from 'react'
+import React ,{ useState, FormEvent, ChangeEvent } from 'react'
 import { FormGroup, InputGroup, TextArea, Button, ControlGroup } from '@blueprintjs/core';
 import { task } from '../../interfaces/task';
-import moment from 'moment';
+//import moment from 'moment';
 import { DateInput } from '@blueprintjs/datetime';
 import './Form.scss';
 
@@ -28,16 +28,15 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
         });  
     }
 
-    const handleInitDate =date => {
-        setDataTask({
-            ...dataTask,
-            initDate :date 
-            });
-    }
-
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         setTask2List(dataTask);
+        setDataTask({
+            name        : "",
+            description : "",
+            initDate    : new Date( Date.now() ),
+            finishDate  : null
+        });
     }
 
     return (
@@ -90,11 +89,10 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
                 >
                     <DateInput
                         formatDate={date => date.toLocaleString()}
-                        //onChange={this.handleDateChange}
                         parseDate={str => new Date(str)}
                         defaultValue={new Date()}
                         placeholder={"M/D/YYYY"}
-                        //value={this.state.date}
+                        value = { dataTask.initDate }
                         onChange = {  date => {
                             setDataTask({
                                 ...dataTask,
@@ -111,10 +109,15 @@ const Form = ( { listaTasks, setListaTasks, setTask2List }: FormProps ) => {
                 >
                     <DateInput
                         formatDate={date => date.toLocaleString()}
-                        //onChange={this.handleDateChange}
                         parseDate={str => new Date(str)}
                         placeholder={"M/D/YYYY"}
-                        //value={this.state.date}
+                        value = { dataTask.finishDate }
+                        onChange = {  date => {
+                            setDataTask({
+                                ...dataTask,
+                                finishDate :date 
+                                });
+                        } }        
                     />
                 </FormGroup>
 

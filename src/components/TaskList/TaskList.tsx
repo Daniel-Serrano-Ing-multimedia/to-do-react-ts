@@ -9,16 +9,19 @@ export interface TaskListProps {
   reloadList: boolean;
   setReloadList: React.Dispatch<React.SetStateAction<boolean>>
 }
- 
+
+
 const TaskList: React.SFC<TaskListProps> = ({ listaTasks, reloadList, setReloadList }: TaskListProps) => {
-  useEffect(() => {
+  const onReload = () => {
     console.log("reload list");
     setReloadList(false);
-  }, [reloadList]);
+  }
   
+  useEffect(onReload, [listaTasks, reloadList]);
+
   return ( 
     <div>
-      <h1>{ listaTasks.length}</h1>
+      <h1>{ listaTasks.length }</h1>
       <div>
         {listaTasks.map((task: task, index: number) => 
           <Task

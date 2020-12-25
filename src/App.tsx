@@ -1,21 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header/Header';
 import Form from './components/Form/Form';
 import TaskList from './components/TaskList/TaskList';
-import Task from './components/Task/Task';
 import { task } from './interfaces/task';
 import './App.scss';
 
+const listInit: task[] = [];
+
+listInit.push({
+  name: "tarea1",
+  description: "una tarea",
+  initDate: null,
+  finishDate: null
+});
 function App() {
   const [listaTasks, setListaTasks] = useState<task[]>([]);
   const [reloadList, setReloadList] = useState(false);
-
+  if ( listaTasks.length === 0 ) {
+    setListaTasks(listInit);
+  }
   const setTask2List = (task: task): void => {
     let list: task[] = listaTasks;
     list.push(task);
     setListaTasks(list);
     setReloadList(true);
-    console.log("on submit", task);
   }
   return (
     <>

@@ -1,6 +1,6 @@
 export interface task {
   name        : string,
   description : string,
-  initDate    : Date,
-  finishDate  : Date
+  initDate    : Date | null,
+  finishDate  : Date | null
 }
