@@ -1,0 +1,14 @@
+.task{
+    width: 300px;
+    margin-top: 20px;
+
+    &__buttons{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &__button{
+            width: 80px;
+        }
+    }
+}
